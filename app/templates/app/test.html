@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Upload and Preview</title>
+    <style>
+        #preview-container {
+            max-width: 300px;
+            margin: 20px auto;
+        }
+
+        #preview-image {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>Image Upload and Preview</h1>
+        <input type="file" id="imageInput" onchange="previewImage()">
+        <div id="preview-container">
+            <img id="preview-image" src="#" alt="Preview Image">
+        </div>
+    </div>
+
+    <script>
+        function previewImage() {
+            var input = document.getElementById('imageInput');
+            var previewContainer = document.getElementById('preview-container');
+            var previewImage = document.getElementById('preview-image');
+
+            var file = input.files[0];
+
+            if (file) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    previewImage.src = e.target.result;
+                    previewContainer.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            } else {
+                previewImage.src = '#';
+                previewContainer.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

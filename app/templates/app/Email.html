@@ -1,0 +1,14 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Xác nhận đăng ký</title>
+</head>
+<body>
+    <h2>Xác nhận đăng ký</h2>
+    <p>Xin chào {{ user.username }},</p>
+    <p>Cảm ơn bạn đã đăng ký tài khoản. Bạn có thể xác nhận tài khoản của mình bằng cách nhấp vào liên kết dưới đây:</p>
+    <a href="http://127.0.0.1:8000/confirm_registration/{{ user.id }}">Xác nhận tài khoản</a>
+    <p>Xin cảm ơn!</p>
+</body>
+</html>

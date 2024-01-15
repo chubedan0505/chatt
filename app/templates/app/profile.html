@@ -1,0 +1,137 @@
+ {% extends "app/base.html" %}
+{% load static %}
+{% block profile %}
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link href="{% static 'appStatic/css/style.css'%}" rel="stylesheet"/>
+  <link href="{% static 'appStatic/css/chat.css'%}" rel="stylesheet"/>
+  <link href="{% static 'appStatic/css/owl.carousel.min.css'%}" rel="stylesheet"/>
+  <link href="{% static 'appStatic/css/all.min.css'%}" rel="stylesheet"/>
+  <link href="{% static 'appStatic/css/main.css'%}" rel="stylesheet"/>
+
+
+  <!-- js-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+  <script src ="{% static 'appStatic/js/owl.carousel.min.js'%}"></script>
+  <script src ="{% static 'appStatic/js/all.min.js'%}"></script>
+  <script src ="{% static 'appStatic/js/myscript.js'%}"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+
+
+
+
+{% comment %} <div class="p-3 mb-2 bg-info text-white text-center"><h1>Trang Cá Nhân</h1></div> {% endcomment %}
+
+    <div class="container-xl px-4 mt-4">
+       {% if profile %}
+     
+            <div class="row">
+                <div class="col-xl-4">
+                    <!-- Profile picture card -->
+                    <div class="card mb-4 mb-xl-0">
+                        <div class="card-header">Ảnh Đại Diện</div>
+                        <div class="card-body text-center">
+                            {% if profile.image %}
+                                <img class="img-account-profile rounded-circle mb-2" src="{{ profile.image.url }}" alt="Profile Image">
+                            {% else %}
+                                <!-- Show default image if no image available -->
+                                <img class="img-account-profile rounded-circle mb-2" src="{% static 'appStatic/images/avt.png' %}" alt="Default Image">
+                            {% endif %}
+                           
+                        </div>
+                    </div>
+                    <div class="card mb-4 mb-xl-0">
+                        <div class="card-header">Giới Thiệu</div>
+                        <div class="card-body text-center">
+                            <label class="small mb-1"> {{ profile.aboutme }}</label>
+                           
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-8">
+                    <!-- Account details card -->
+                    <div class="card mb-4">
+                        <div class="card-header">Tài Khoản</div>
+                        <div class="card-body">
+                            <form>
+                                <!-- Display other profile details -->
+                                <div class="mb-3 h6">
+                                    <label class="small mb-1" for="inputUsername">Tên Tài Khoản:
+                                        {% if profile.last_name or profile.first_name %}
+                                            {% if profile.last_name %}
+                                                {{ profile.last_name }}
+                                            {% endif %}
+                                            {% if profile.first_name %}
+                                                {{ profile.first_name }}
+                                            {% endif %}
+                                        {% else %}
+                                            {{ profile.user.username }}
+                                        {% endif %}
+                                    </label>
+                                    
+                                </div>
+                                <div class="mb-3 h6 ">
+                                    <label class="small mb-1" for="inputFirstName">Tên: {{ profile.first_name }}</label>
+                                    
+                                </div>
+                                <div class="mb-3 h6">
+                                    <label class="small mb-1" for="inputLastName">Họ: {{ profile.last_name }}</label>
+                                    
+                                </div>
+                                
+                                <div class="mb-3 h6">
+                                    <label class="small mb-1" for="inputPhone">Số Điện Thoại: {{ profile.phone }}</label>
+                                   
+                                </div>
+                                <div class="mb-3 h6">
+                                    <label class="small mb-1" for="inputPhone">Địa Chỉ: {{ profile.location }}</label>
+                                    
+                                </div>
+                                <div class="mb-3 h6">
+                                    <label class="small mb-1" for="inputBirthday">Ngày Sinh: {{ profile.birthday }}</label>
+                                    
+                                </div>
+                                
+                                <div class="mb-3 h6">
+                                    <label class="small mb-1" for="inputGender">Giới Tính: {{ profile.gender }}</label>
+                                </div>
+                                <div class="mb-3 h6">
+                                    <label class="small mb-1" for="inputRelationship">Mối Quan Hệ: {{ profile.relationship_status }}</label>
+                                </div>
+                                <div class="mb-3 h6">
+                                    <label class="small mb-1" for="inputReligion">Tôn Giáo: {{ profile.religion }}</label>
+                                </div>
+                                <div class="mb-3 h6">
+                                    <label class="small mb-1" for="inputEducation">Học Vấn: {{ profile.education }}</label>
+                                </div>
+                                <div class="mb-3 h6">
+                                    <label class="small mb-1" for="inputEmail">Email: {{ profile.email }}</label>
+                                </div>
+
+                                <!-- Save changes button-->
+                                <div style="display: flex; justify-content: space-between;">
+                                    <button class="btn  btn-primary" type=""> <a href="{% url 'homechat' %}" style="color: white; text-decoration:none ;">Trở Về</a></button>
+                                    <button class="btn  btn-primary" type=""><a href="{% url 'edit' %}" style="color: white; text-decoration: none;">Sửa</a></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+     
+           {% else %}
+             <p>No profiles found.</p>
+        {% endif %}
+    </div>
+   {% endblock profile  %}
+    
