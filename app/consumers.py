@@ -1,11 +1,11 @@
 import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 
-
+from .models import Message
 
 class ChatConsumer(AsyncWebsocketConsumer):# tạo chatsocket cho mục đích được yêu cầu
 	async def connect(self):
-		self.roomGroupName = "group_chat_gfg"
+		self.roomGroupName = "groupchat"
 		await self.channel_layer.group_add(#tạo nhóm cho phòng trò chuyện và thêm nhóm
 			self.roomGroupName ,
 			self.channel_name
@@ -26,6 +26,8 @@ class ChatConsumer(AsyncWebsocketConsumer):# tạo chatsocket cho mục đích �
 				"message" : message , 
 				"username" : username ,
 			})
+		
+		
 	async def sendMessage(self , event) : 
 		message = event["message"]
 		username = event["username"]

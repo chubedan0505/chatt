@@ -319,7 +319,7 @@ body{margin-top:20px;
 
     /* profile css*/
 body{
-    background-color: #f9fafb;
+    background-color: #444;
     margin-top:20px;}
 
 .profile-page .profile-header {
@@ -377,7 +377,7 @@ body{
     width: 100%;
     height: 100%;
     z-index: 1;
-    background: linear-gradient(rgba(255, 255, 255, 0.1), #fff 99%);
+    background: linear-gradient(rgba(255, 255, 255, 0.1), #444 99%);
 }
 
 .profile-page .profile-header .cover .cover-body {

@@ -16,5 +16,9 @@ class CustomUserAdmin(BaseUserAdmin):
 admin.site.unregister(User)
 admin.site.register(User, CustomUserAdmin)
 admin.site.register(ConfirmationCode)
+admin.site.register(Message)
+admin.site.register(FriendInvitation)
+admin.site.register(Friendship)
+admin.site.register(FriendRequest)
 
 

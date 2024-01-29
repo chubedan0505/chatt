@@ -1,0 +1,111 @@
+{% extends 'app/friend.html' %}
+    {% load static %}
+    <!DOCTYPE html>
+    <html lang="en">
+    {% block content1 %}
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Danh sách Bạn bè</title>
+      <style>
+        body {
+          font-family: Arial, sans-serif;
+          margin: 0;
+          padding: 0;
+          background-color: #f0f2f5;
+        }
+
+        header {
+          background-color: #4267b2;
+          color: #fff;
+          padding: 10px;
+          text-align: center;
+        }
+
+        .friend-container {
+          width: 800px;
+          margin: 20px auto;
+          background-color: #fff;
+          border-radius: 8px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          padding: 20px;
+        }
+
+        .friend-list {
+          list-style-type: none;
+          padding: 0;
+        }
+
+        .friend-list-item {
+          display: flex;
+          align-items: center;
+          margin-bottom: 15px;
+          padding: 10px;
+          border-radius: 5px;
+          transition: background-color 0.3s;
+        }
+
+        .friend-list-item:hover {
+          background-color: #f0f0f0;
+        }
+
+        .friend-avatar {
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          margin-right: 10px;
+        }
+
+        .friend-name {
+          font-weight: bold;
+        }
+
+        .message-btn {
+          background-color: #0084ff;
+          color: #fff;
+          border: none;
+          padding: 8px 15px;
+          text-align: center;
+          text-decoration: none;
+          font-size: 14px;
+          border-radius: 4px;
+          cursor: pointer;
+          margin-left: auto;
+        }
+      </style>
+    </head>
+    <body>
+     
+      <header>
+        <h1>Danh sách bạn bè</h1>
+      </header>
+
+      <div class="friend-container">
+    <h1>Những người bạn của bạn</h1>
+          {% for friendship in friendships %}
+    <ul class="friend-list">
+    {% for friend in friendship.friends.all %}
+      <li class="friend-list-item">
+        <img src="{% static 'img/avatar.jpg' %}" alt="Avatar" class="friend-avatar" />
+        <div>
+          <div class="friend-name">{{ friend.username }}</div>
+        </div>
+        <button class="message-btn"><a style="color: white; text-decoration:none ;"  href="{% url 'homechat' %}">Gửi tin nhắn</a></button>
+      </li>
+        {% endfor %}
+    </ul>
+          {% endfor %}
+  </div>
+
+      <script>
+    // Hàm xử lý khi click nút Gửi tin nhắn
+    function sendMessage(friendName) {
+        alert(`Đang gửi tin nhắn cho ${friendName}`);
+    }
+      </script>
+
+
+    </body>
+    </html>
+
+    {% endblock content1 %}

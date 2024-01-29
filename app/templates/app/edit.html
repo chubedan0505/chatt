@@ -12,10 +12,9 @@
     <link href="{% static 'appStatic/css/owl.carousel.min.css'%}" rel="stylesheet"/>
     <link href="{% static 'appStatic/css/all.min.css'%}" rel="stylesheet"/>
     <link href="{% static 'appStatic/css/main.css'%}" rel="stylesheet"/>
-    <!-- js-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+    <!-- js--> 
+     <link href="{% static 'appStatic/css/chatpage.css'%}" rel="stylesheet"/>
+    
     <script src ="{% static 'appStatic/js/owl.carousel.min.js'%}"></script>
     <script src ="{% static 'appStatic/js/all.min.js'%}"></script>
     <script src ="{% static 'appStatic/js/myscript.js'%}"></script>
@@ -27,7 +26,15 @@
     
 
 
-
+    <style>
+        .img-account-profile {
+            object-fit: cover;
+            width: 200px;  /* Đặt kích thước muốn hiển thị */
+            height: 200px; /* Đặt kích thước muốn hiển thị */
+            border-radius: 10%;  /* Số này có thể điều chỉnh để thay đổi độ cong, 10% là ví dụ */
+        }
+    </style>
+   
 
 
 {% comment %} <div class="p-3 mb-2 bg-info text-white text-center"><h1>Chỉnh Sửa</h1></div> {% endcomment %}
@@ -38,19 +45,19 @@
     </div>
  {% endfor %}
  {% endif %}
-    <div class="container-xl px-4 mt-4">
+    <div class="container-xl px-4 mt-4" >
        
 
             <div class="row">
-                <div class="col-xl-4">
+                <div class="col-xl-4"   >
                     <!-- Profile picture card -->
-                    <div class="card mb-4 mb-xl-0">
+                    <div class="card mb-4 mb-xl-0"  style="height:350px;">
                         <div class="card-header">Ảnh Đại Diện</div>
                <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
-                <div class="card-body text-center">
+                <div class="card-body text-center"  style="height:300px;">
                     {% if profile.image %}
-                    <img id="profileImage" class="img-account-profile rounded-circle mb-2" src="{{ profile.image.url }}" alt="Profile Image">
+                    <img id="profileImage"  class="img-account-profile rounded-circle mb-2" src="{{ profile.image.url }}" alt="Profile Image">
                     
                     <div id="preview-container" style="display: none;">
                         <img id="preview-image" class="img-account-profile rounded-circle mb-2" src="" alt="Preview Image">
@@ -94,9 +101,9 @@
                     
                     </div>
                 </div>
-                <div class="col-xl-8">
+                <div class="col-xl-8"  style="height:1500px;">
                     <!-- Account details card -->
-                    <div class="card mb-4">
+                    <div class="card mb-4"  style="height:1120px;">
                         <div class="card-header">Chi Tiết Chỉnh Sửa</div>
                         <div class="card-body">
                             <form>
@@ -128,21 +135,34 @@
                                     <label class="small mb-1" >Địa Chỉ:</label>
                                     <input class="form-control" id="inputLocation" type="tel" placeholder="Enter your location" name="location" value="{{ profile.location }}">
                                 </div>
-                                 <div class="mb-3">
-                                <label class="small mb-1" for="inputGender">Giới Tính:</label>
-                                <input class="form-control" id="inputGender" name="gender" type="text" placeholder="Enter your gender" value="{{ profile.gender }}">
-                            </div>
-                            <div class="mb-3">
-                                <label class="small mb-1" for="inputRelationship">Mối Quan Hệ:</label>
-                                <input class="form-control" id="inputRelationship" name="relationship_status" type="text" placeholder="Enter your relationship status" value="{{ profile.relationship }}">
-                            </div>
+                                <div class="mb-3">
+                                    <label class="small mb-1" for="inputGender">Giới Tính:</label>
+                                    <select class="form-control" id="inputGender" name="gender">
+                                        <option >Nam</option>
+                                        <option >Nữ</option>
+                                        <option >Khác</option>
+                                    </select>
+                                </div>
+                               
+                                <div class="mb-3">
+                                    <label class="small mb-1" for="inputGender">Mối quan hệ:</label>
+                                    <select class="form-control" id="inputGender"  name="relationship_status" >
+                                        <option >Ế</option>
+                                        <option >Hẹn Hò</option>
+                                        <option >Khác</option>
+                                    </select>
+                                </div>
                             <div class="mb-3">
                                 <label class="small mb-1" for="inputReligion">Tôn Giáo:</label>
                                 <input class="form-control" id="inputReligion" name="religion" type="text" placeholder="Enter your religion" value="{{ profile.religion }}">
                             </div>
                             <div class="mb-3">
-                                <label class="small mb-1" for="inputEducation">Học Vấn:</label>
-                                <input class="form-control" id="inputEducation" name="education" type="text" placeholder="Enter your education level" value="{{ profile.education }}">
+                                <label class="small mb-1" for="inputGender">Học Vấn:</label>
+                                <select class="form-control" id="inputGender" name="education">
+                                    <option >Đại học</option>
+                                    <option >Cao đẳng</option>
+                                    <option >Khác</option>
+                                </select>
                             </div>
                             <div class="mb-3">
                                 <label class="small mb-1" for="inputEmail">Email:</label>

@@ -1,0 +1,149 @@
+{% extends 'app/friend.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+{% block content1 %}
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Danh sách lời mời kết bạn</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f2f5;
+    }
+
+    header {
+      background-color: #4267b2;
+      color: #fff;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .friend-container {
+      width: 800px;
+      margin: 20px auto;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+    }
+
+    .friend-list {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .friend-list-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+      padding: 10px;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    .friend-list-item:hover {
+      background-color: #f0f0f0;
+    }
+
+    .friend-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    .friend-name {
+      font-weight: bold;
+    }
+
+    .accept-btn, .reject-btn {
+      background-color: #4caf50;
+      color: #fff;
+      border: none;
+      padding: 8px 15px;
+      text-align: center;
+      text-decoration: none;
+      font-size: 14px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-left: auto;
+    }
+
+    .reject-btn {
+      background-color: #f44336;
+      margin-left: 10px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Danh sách lời mời kết bạn</h1>
+  </header>
+  <div class="friend-container">
+    <h1>Những người gửi lời mời kết bạn</h1>
+    <ul class="friend-list">
+         {% for invitation in received_invitations %}
+      <li class="friend-list-item">
+        <img src="{% static 'img/avatar.jpg' %}" alt="Avatar" class="friend-avatar" />
+        <div>
+          <div class="friend-name">{{ invitation.sender.username }} </div>
+            <div class="status-message" style="display: none;">Đã từ chối kết bạn</div>
+        </div>
+        <button class="accept-btn" onclick="acceptFriendRequest('{{ invitation.sender.username }}', this.parentElement)">Chấp nhận</button>
+        <button class="reject-btn" onclick="rejectFriendRequest('{{ invitation.sender.username }}', this)">Từ chối</button>
+      </li>
+        {% endfor %}
+</ul>
+  </div>
+
+<script>
+
+    // Hàm xử lý khi click nút Chấp nhận
+    function acceptFriendRequest(friendName, listItem) {
+        // Ẩn phần tử <li> chứa lời mời kết bạn đã được chấp nhận
+        $(listItem).hide();
+        addFriendAndUpdateUI(friendName);
+        // Hiển thị dòng thông báo hoặc cập nhật giao diện người dùng
+        alert(`Đã chấp nhận lời mời kết bạn từ ${friendName}`);
+    }
+
+
+        // Hàm để thêm người bạn vào danh sách bạn bè và cập nhật UI
+        function addFriendAndUpdateUI(friendName) {
+            var friendshipsList = document.querySelector(".friendships-list");
+
+            // Tạo một thẻ li mới cho người bạn
+            var newFriendItem = document.createElement("li");
+            newFriendItem.className = "friend-list-item";
+            newFriendItem.innerHTML = `
+                <img src="{% static 'img/avatar.jpg' %}" alt="Avatar" class="friend-avatar" />
+                <div>
+                    <div class="friend-name">${friendName}</div>
+                </div>
+                <button class="message-btn" onclick="sendMessage('${friendName}')">Gửi tin nhắn</button>
+            `;
+
+            // Thêm người bạn vào danh sách bạn bè
+            friendshipsList.appendChild(newFriendItem);
+        }
+
+
+        // Hàm xử lý khi click nút Từ chối
+          function rejectFriendRequest(friendName, button) {
+              // Hiển thị dòng chữ "Đã từ chối kết bạn" ngay sau user
+              $(button).closest('.friend-list-item').find('.status-message').show();
+              // Ẩn nút từ chối để tránh từ chối nhiều lần
+              $(button).hide();
+              // Hiển thị dòng thông báo hoặc cập nhật giao diện người dùng
+              alert(`Đã từ chối lời mời kết bạn từ ${friendName}`);
+          }
+
+</script>
+
+</body>
+</html>
+{% endblock content1 %}

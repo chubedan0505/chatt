@@ -1,5 +1,6 @@
 
 {% load static %}
+{% block login %}
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -24,7 +25,11 @@
   <title>Document</title>
 </head>
 
-{% block login %}
+
+
+
+<body>
+  
 <section class="vh-100" style="background-color: #eee;">
     <div class="container h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
@@ -36,14 +41,15 @@
   
                   <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Đăng Nhập</p>
   
-                  <form class="mx-1 mx-md-2"  method="POST" action="#">
+                  <form  id="login-form" class="mx-1 mx-md-2"  method="POST" action="#">
                       {% csrf_token %}
                     <div class="d-flex flex-row align-items-center mb-4">
                       <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                       <div class="form-outline flex-fill mb-0">
+                        {% comment %} <input type="text" name="username" id="form3xample1c" class="form-control" value="{{ request.POST.username|default_if_none:'' }}"> {% endcomment %}
+                        
                         <input type="text" name="username" id="form3xample1c" class="form-control" value="{{ request.POST.username|default_if_none:'' }}">
                         
-
                         <label class="form-label" for="form3Example1c">Tên đăng nhập</label>
                        
                       </div>
@@ -75,7 +81,7 @@
                     <div>
                         <ul class="messages">
                             {% for message in messages %}
-                                <li class="alert alert-info {% if message.tags %}{{ message.tags }}{% endif %}">{{ message }}</li
+                                <li class="alert alert-info {% if message.tags %}{{ message.tags }}{% endif %}">{{ message }}</li>
                             {% endfor %}
                         </ul>
                     </div>
@@ -89,7 +95,32 @@
                     <div class="d-flex justify-content-center mb-2 mx-1 mx-md-1 mt-1 ">
                       <button type="submit" class="btn  bg-dark"  style="color: white;">Đăng nhập</button> 
                     </div>
-                    <p class="text-center" style="font-size: smaller;"><a href={% url 'forgot_password' %} style="color: black; text-decoration: ;">Quên Mật Khẩu</a></p>
+                    
+                    
+                    
+                      <p class="text-center" style="font-size: smaller;">
+                          <a href="#" id="forgot-password-link" style="color: black; text-decoration: none;">Quên Mật Khẩu</a>
+                      </p>
+                     
+                  </form>
+                  <script>
+                    document.getElementById('forgot-password-link').addEventListener('click', function(e) {
+                      e.preventDefault(); // Ngăn chặn hành vi mặc định của liên kết
+                      console.log("Click on forgot-password-link");
+                      var username = document.getElementById('form3xample1c').value;
+                      if (!username || username.trim() === '') {
+                        alert("Vui lòng nhập tên đăng nhập.");
+                        return;  // Dừng lại nếu không có username
+                      }
+                      if (username !== '' && username !== null) {
+                        console.log("Tên đăng nhập:", username);
+                        // Chuyển đến trang quên mật khẩu với tham số username
+                        window.location.replace("{% url 'forgot_password' %}?username=" + encodeURIComponent(username));
+                      }
+                    });
+                  </script>
+                  
+                  
 
                     <p class="text-center h7 fw-bold  mb-5 mx-1 mx-md-4 mt-4 ">Nếu bạn chưa có tài khoản hãy <a href={% url 'register' %} style="color: blue; text-decoration: ;"> <br> Đăng Ký</a></p>
                    
@@ -111,4 +142,13 @@
       </div>
     </div>
   </section>
+ <!-- ... -->
+
+
+<!-- ... -->
+
+
+  
+
+</body>
 {% endblock login %}
